@@ -44,6 +44,15 @@ if(isset($check2)){
 	 echo $existEmailJSON ; 
  
   }
+  elseif(strcmp($password,$re_password)!==0){
+	$pass_not_match = 'Passwords not matching..!';
+	
+	//Converting the message into JSON format.
+   $pass_not_matchJSON = json_encode($pass_not_match);
+	
+   // Echo the message on Screen.
+	echo $pass_not_matchJSON ; 	  
+  }
   elseif(isset($check1)){
  
 	$contactExist = 'Contact number Already Exists..!';
