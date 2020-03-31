@@ -45,7 +45,7 @@ CREATE TABLE `users` (
   `for_time` date NOT NULL,
   `username` varchar(20) NOT NULL,
   `pass` varchar(11) NOT NULL,
-  `re_pass` varchar(11) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
