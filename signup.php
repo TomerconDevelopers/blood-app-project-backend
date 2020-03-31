@@ -78,7 +78,7 @@ if(isset($check2)){
  else{
  
 	 // Creating SQL query and insert the record into MySQL database table.
-	 $Sql_Query = "insert into users(name,gender,age,weight,bloodgroup,district,localty,contacts,alt_contact_no,email,last_don,status,for_time,username,pass,re_pass) values('$name','$gender','$age','$weight','$bloodgroup','$district','$localty','$contacts','$alt_contact','$email','$last_don','$status','$for_time','$uname','$password','$re_password')";
+	 $Sql_Query = "insert into users(name,gender,age,weight,bloodgroup,district,localty,contacts,alt_contact_no,email,last_don,status,for_time,username,pass) values('$name','$gender','$age','$weight','$bloodgroup','$district','$localty','$contacts','$alt_contact','$email','$last_don','$status','$for_time','$uname','$password')";
 
 	 if(mysqli_query($con,$Sql_Query)){
 	 
