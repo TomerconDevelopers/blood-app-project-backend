@@ -22,38 +22,37 @@ $status=$obj['status'];
 $for_time=$obj['for_time'];
 $uname=$obj['uname'];
 $password = $obj['password'];
-$re_password=$obj['re_password'];
-// Checking whether Contact no or Email is Already Exist or Not in MySQL Table.
+
+//converting string types to their actual types
+//weight-string to int
+$w=(int)$weight;
+//age -string to int
+$a=(int)$age;
+if(!empty($last_don)){
+	$d=strtotime($last_don);//if last donation is given converting it to date
+	$d1=date('Y-m-d',$d);
+}else{
+	$d=strtotime('0000-00-00');//if status is available for/unavailable for
+	$d1=date('Y-m-d',$d);	
+}
+if(!empty($for_time)){
+	$d2=strtotime($for_time);
+	$d3=date('Y-m-d',$d2);
+}else{
+	$d2=strtotime(0000-00-00);
+	$d3=date('Y-m-d',$d2);
+}
+
+// Checking whether Contact no or username is Already Exist or Not in MySQL Table.
 $CheckSQL1 = "SELECT * FROM users WHERE contacts='$contacts'";
-$CheckSQL2 = "SELECT * FROM users WHERE email='$email'";
 $CheckSQL3 = "SELECT * FROM users WHERE username='$uname'";
  
-// Executing Email Check MySQL Query.
+// Executing Contact and username Check MySQL Query.
 $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
-$check2 = mysqli_fetch_array(mysqli_query($con,$CheckSQL2));
 $check3 = mysqli_fetch_array(mysqli_query($con,$CheckSQL3));
  
-if(isset($check2)){
- 
-	 $emailExist = 'Email Already Exist..!';
-	 
-	 // Converting the message into JSON format.
-	$existEmailJSON = json_encode($emailExist);
-	 
-	// Echo the message on Screen.
-	 echo $existEmailJSON ; 
- 
-  }
-  elseif(strcmp($password,$re_password)!==0){
-	$pass_not_match = 'Passwords not matching..!';
-	
-	//Converting the message into JSON format.
-   $pass_not_matchJSON = json_encode($pass_not_match);
-	
-   // Echo the message on Screen.
-	echo $pass_not_matchJSON ; 	  
-  }
-  elseif(isset($check1)){
+//checking whether contact exists or not
+  if(isset($check1)){
  
 	$contactExist = 'Contact number Already Exists..!';
 	
@@ -64,9 +63,10 @@ if(isset($check2)){
 	echo $existcontactJSON ; 
 
    } 
+   //checking whether username exists or not
    elseif(isset($check3)){
  
-	$usernExist = 'Contact number Already Exists..!';
+	$usernExist = 'Username Already Exists..!';
 	
 	//Converting the message into JSON format.
    $usernJSON = json_encode($usernExist);
@@ -78,12 +78,12 @@ if(isset($check2)){
  else{
  
 	 // Creating SQL query and insert the record into MySQL database table.
-	 $Sql_Query = "insert into users(name,gender,age,weight,bloodgroup,district,localty,contacts,alt_contact_no,email,last_don,status,for_time,username,pass) values('$name','$gender','$age','$weight','$bloodgroup','$district','$localty','$contacts','$alt_contact','$email','$last_don','$status','$for_time','$uname','$password')";
+	 $Sql_Query = "insert into users(name,gender,age,weight,bloodgroup,district,localty,contacts,alt_contact_no,email,last_don,status,for_time,username,pass) values('$name','$gender','$a','$w','$bloodgroup','$district','$localty','$contacts','$alt_contact','$email','$d1','$status','$d3','$uname','$password')";
 
 	 if(mysqli_query($con,$Sql_Query)){
 	 
 		 // If the record inserted successfully then show the message.
-		$MSG = 'User Registered Successfully' ;
+		$MSG = "Congrats!!You've successfully registered..." ;
 		 
 		// Converting the message into JSON format.
 		$json = json_encode($MSG);
@@ -95,6 +95,7 @@ if(isset($check2)){
 	 else{
 	 
 		echo 'Try Again';
+		// echo $Sql_Query.mysqli_error($con);
 	 
 	 }
  }
