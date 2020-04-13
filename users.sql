@@ -29,22 +29,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` varchar(707) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `gender` enum('male','female') NOT NULL,
-  `age` tinyint(20) NOT NULL,
-  `weight` smallint(5) NOT NULL,
+  `gender` enum('male','female','others') NOT NULL,
+  `age` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
   `bloodgroup` enum('O+','O-','A+','A-','B+','B-','AB+','AB-') NOT NULL,
-  `district` varchar(200) NOT NULL,
-  `localty` int(40) NOT NULL,
-  `contacts` varchar(200) NOT NULL,
-  `alt_contact_no` varchar(20) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `district` varchar(50) NOT NULL,
+  `localty` varchar(50) NOT NULL,
+  `contacts` varchar(15) NOT NULL,
+  `alt_contact_no` varchar(15) NOT NULL,
+  `email` varchar(20) NOT NULL,
   `last_don` date NOT NULL,
   `status` enum('Available anytime','Available for','Unavailable for') NOT NULL,
   `for_time` date NOT NULL,
   `username` varchar(20) NOT NULL,
-  `pass` varchar(11) NOT NULL,
+  `pass` text NOT NULL,
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
