@@ -18,11 +18,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requests`
+-- Table structure for table `cordinatorrequests`
 --
 
-CREATE TABLE `requests` (
- `cid` int(11) NOT NULL,
+CREATE TABLE `cordinatorrequests` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `age` int(11) NOT NULL,
@@ -34,7 +33,8 @@ CREATE TABLE `requests` (
   `bystander_alt_contacts` int(15) NOT NULL,
   `district` varchar(30) NOT NULL,
   `taluk` varchar(50) NOT NULL,
-  `hospital` varchar(200) NOT NULL
+  `hospital` varchar(200) NOT NULL,
+  `verified_requests` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -42,9 +42,9 @@ CREATE TABLE `requests` (
 --
 
 --
--- Indexes for table `requests`
+-- Indexes for table `cordinatorrequests`
 --
-ALTER TABLE `requests`
+ALTER TABLE `cordinatorrequests`
   ADD PRIMARY KEY (`bystander_contacts`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -53,9 +53,9 @@ ALTER TABLE `requests`
 --
 
 --
--- AUTO_INCREMENT for table `requests`
+-- AUTO_INCREMENT for table `cordinatorrequests`
 --
-ALTER TABLE `requests`
+ALTER TABLE `cordinatorrequests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
