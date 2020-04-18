@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cordinatorrequests` (
-  `id` int(11) NOT NULL,
+  `coordinatorid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `age` int(11) NOT NULL,
   `date` bigint(20) NOT NULL,
@@ -34,7 +34,8 @@ CREATE TABLE `cordinatorrequests` (
   `district` varchar(30) NOT NULL,
   `taluk` varchar(50) NOT NULL,
   `hospital` varchar(200) NOT NULL,
-  `verified_requests` int(11) NOT NULL
+  `verified_requests` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
