@@ -30,7 +30,7 @@ $d1=date('Y-m-d',$d);
 
 // Checking whether Contact no or username is Already Exist or Not in MySQL Table.
 $CheckSQL1 = "SELECT * FROM coord_requests WHERE bystander_contacts='$contacts' ";
-
+$check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
  
  
 //checking whether contact exists or not
