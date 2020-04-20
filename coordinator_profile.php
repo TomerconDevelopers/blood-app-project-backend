@@ -11,7 +11,7 @@ $uid=$obj["userid"];
 $password=$obj["pass"];
 
 //sql query to fetch the details of the user
-$CheckSQL = "SELECT * FROM coordinators WHERE userid='$uid' and pass='$password'";
+$CheckSQL = "SELECT * FROM coordinators WHERE userid='$uid' and password='$password'";
 
 //fetches the details of the user
 $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
