@@ -71,10 +71,6 @@ $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
 		
 	 
 	 }
-	 $topic = $district;
-      $title="Blood Request";
-	   $content = "Group:".$bloodgroup.", Date:".$dateneed.", District: ".$district.", Hospital : ".$hsp;
-	   push($title,$content,$topic);
 }
  
  

@@ -1,5 +1,5 @@
 <?php
-
+include "firebase_push.php";
 require_once('connection.php');	
 $json = file_get_contents('php://input');
  
@@ -64,8 +64,22 @@ $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
          // Echo the message.
       echo $json ;
          // }		 
-     
-    
+
+        if(substr($bloodgroup,strlen($bloodgroup)-1,1) == "+") {
+            $bb = substr($bloodgroup,0,-1);
+            $topic = $district.$bb."positive";
+        }
+        else{
+
+            $bb = substr($bloodgroup,0,-1);
+            $topic = $district.$bb."negative";
+
+        }
+
+        $title="Blood Request";
+        $content = "Group:".$bloodgroup.", Date:".$date.", District: ".$district.", Hospital : ".$hosp;
+        push($title,$content,$topic);
+
     }
     else{
     
