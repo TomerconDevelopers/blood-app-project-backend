@@ -10,7 +10,7 @@
  $user = "root";
  
  //Defining Database Password.
- $pass = ""; 
+ $pass = "samboil"; 
  
  // Creating MySQL Connection.
  $con = mysqli_connect($hostname,$user,$pass,$dbname);

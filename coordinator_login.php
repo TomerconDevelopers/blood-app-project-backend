@@ -8,9 +8,9 @@ $obj = json_decode($json,true);
 //take the username and password from the app
 $uname=$obj["uname"];
 $password=$obj["pass"];
-
+//echo $uname;
 //sql query to fetch the details of the user
-$CheckSQL4 = "SELECT * FROM users WHERE username='$uname' and pass='$password'";
+$CheckSQL4 = "SELECT * FROM coordinators WHERE userid='$uname' and password='$password'";
 //fetches the details of the user
 $check4 = mysqli_fetch_array(mysqli_query($con,$CheckSQL4));
 //if success,the details is returned
@@ -19,6 +19,6 @@ if(isset($check4)){
      echo json_encode($check4);
 }
 else{
-    echo "Invalid Username/Password";
+    echo json_encode("Invalid Username/Password");
 }
 ?>
