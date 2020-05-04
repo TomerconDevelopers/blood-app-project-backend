@@ -18,14 +18,15 @@ $alt_contact=$obj['alt_contacts'];
 $qty = $obj['qty'];
 $dateneed=$obj['date'];
 $hsp=$obj['hospital'];
-
+$fcm = $obj['fcm_token'];
 // echo $name;
 //converting string types to their actual types
 
 $a=(int)$age;//age -string to int
 $q=(int)$qty;
 $d=strtotime($dateneed);//if last donation is given converting it to date
-$d1=date('Y-m-d',$d);
+$d1=date('Y-m-d H-i-s',$d);
+
 
 // Checking whether Contact no Already Exist or Not in MySQL Table.
 $CheckSQL1 = "SELECT * FROM requests WHERE bystander_contacts='$contacts'";
@@ -33,10 +34,15 @@ $CheckSQL1 = "SELECT * FROM requests WHERE bystander_contacts='$contacts'";
  
 // Executing Contact and username Check MySQL Query.
 $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
+$CheckSQL2 = "SELECT * FROM coord_requests WHERE bystander_contacts='$contacts'";
+
+ 
+// Executing Contact and username Check MySQL Query.
+$check2 = mysqli_fetch_array(mysqli_query($con,$CheckSQL2));
 
  
 //checking whether contact exists or not
-  if(isset($check1)){
+  if(isset($check1) || isset($check2)){
  
 	$contactExist = 'Contact number Already Exists..!';
 	
@@ -51,7 +57,7 @@ $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
  else{
  
 	 // Creating SQL query and insert the record into MySQL database table.
-	 $Sql_Query = "insert into requests(name,age,bloodgroup,bloodqty,district,taluk,hospital,bystander_alt_contacts,bystander_contacts,date) values('$name','$a','$bloodgroup','$q','$district','$localty','$hsp','$alt_contact','$contacts','$d1')";
+	 $Sql_Query = "insert into requests(name,age,bloodgroup,bloodqty,district,taluk,hospital,bystander_alt_contacts,bystander_contacts,date,fcm_token) values('$name','$a','$bloodgroup','$q','$district','$localty','$hsp','$alt_contact','$contacts','$d1','$fcm')";
     
 	 if(mysqli_query($con,$Sql_Query)){
 	 

@@ -39,7 +39,10 @@ CREATE TABLE `coordinators` (
   `experience` int(11) NOT NULL,
   `profession` varchar(50) NOT NULL,
   `userid` varchar(20) NOT NULL,
-  `password` text NOT NULL
+  `password` text NOT NULL,
+  `fcm_token` longtext DEFAULT NULL,
+  `district0` varchar(60) NOT NULL,
+  `district1` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

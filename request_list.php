@@ -6,10 +6,11 @@ $json = file_get_contents('php://input');
 // Decode the received JSON and Store into $obj variable.
 $obj = json_decode($json,true);
 //take the username and password from the app
-$location=$obj["loc"];
+$dis0=$obj["dis0"];
+$dis1=$obj["dis1"];
 
 
-$sql=$con->query("select * from requests where taluk='$location'");
+$sql=$con->query("select * from requests where district='$dis0' or district='$dis1'");
     $res=array();
     while($row=$sql->fetch_assoc()){
         $res[]=$row;

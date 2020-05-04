@@ -21,11 +21,12 @@ $hosp=$obj['hosp'];
 $verified = $obj['verified'];
 $cid=$obj['id'];
 
+
 //converting string types to their actual types
 
 $a=(int)$age;//age -string to int
 $d=strtotime($date);//if last donation is given converting it to date
-$d1=date('Y-m-d',$d);
+$d1=date('Y-m-d H-i-m',$d);
 
 
 // Checking whether Contact no or username is Already Exist or Not in MySQL Table.
@@ -36,7 +37,7 @@ $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
 //checking whether contact exists or not
   if(isset($check1)){
  
-	$contactExist = 'Record already verified..!';
+	$contactExist = 'Record already exists..!';
 	
 	//Converting the message into JSON format.
    $existcontactJSON = json_encode($contactExist);
@@ -49,21 +50,25 @@ $check1 = mysqli_fetch_array(mysqli_query($con,$CheckSQL1));
  else{
  
 	 // Creating SQL query and insert the record into MySQL database table.
-     $Sql_Query = "insert into coord_requests(name,age,bloodgroup,bloodqty,district,taluk,hospital,bystander_contacts,bystander_alt_contacts,date,status,verification,coor_id) values('$name','$a','$bloodgroup','$units','$district','$localty','$hosp','$contacts','$alt_contact','$d1','$status','$verified','$cid')";
-    $SQL1 = "delete from requests where bystander_contacts='$contacts'";
+      $Sql_Query = "insert into coord_requests(name,age,bloodgroup,bloodqty,district,taluk,hospital,bystander_contacts,bystander_alt_contacts,date,status,verification,coor_id) values('$name','$a','$bloodgroup','$units','$district','$localty','$hosp','$contacts','$alt_contact','$d1','$status','$verified','$cid')";    
+      $CheckSQL3 = "SELECT * FROM requests WHERE bystander_contacts='$contacts' ";
+      $check3 = mysqli_fetch_array(mysqli_query($con,$CheckSQL3));
+      $tok=$check3['fcm_token'];
+
+      $SQL1 = "delete from requests where bystander_contacts='$contacts'";
      // echo $Sql_Query;
 	 if($verified!='Rejected'){
     if(mysqli_query($con,$Sql_Query) && mysqli_query($con,$SQL1)){
-        
+       $msg="Your Request has been verified";
+        //push_notification_android($tok,$msg);
       // If the record inserted successfully then show the message.
-     
+        push("Blood Request ","Your Blood Request had been Verified Succesfully",$contacts);
          
          $MSG = "Posted successfully..!" ;
-         // Converting the message into JSON format.
          $json = json_encode($MSG);
          // Echo the message.
       echo $json ;
-         // }		 
+         
 
         if(substr($bloodgroup,strlen($bloodgroup)-1,1) == "+") {
             $bb = substr($bloodgroup,0,-1);

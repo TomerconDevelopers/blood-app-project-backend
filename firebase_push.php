@@ -81,4 +81,44 @@ function push_notification_android($device_id,$message){
     curl_close($ch);
    // return $result;
 }
+function scheduled_push_notification_android($device_id,$message,$scheduled_time){
+
+    //API URL of FCM
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    /*api_key available in:
+    Firebase Console -> Project Settings -> CLOUD MESSAGING -> Server key*/
+    $api_key = 'AAAATklzvKg:APA91bEDr9RxNKj3Dut7TjHac39IBQfMI2gQCmN9PPGX8dZB4yG4MbRuZQ0SP4mHnYfuToDSdudzzQ1tl3GEz05-tmDV-pQ6UExitnU7MzXTq6lbgGDZlITcs-tJShddJtd_19Xx_OGf';
+
+    $fields = array (
+        'registration_ids' => array (
+            $device_id
+        ),
+        'data' => array (
+            "message" => $message,
+            "sched_time"=>$scheduled_time
+        )
+    );
+
+    //header includes Content type and api key
+    $headers = array(
+        'Content-Type:application/json',
+        'Authorization:key='.$api_key
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+        die('FCM Send Error: ' . curl_error($ch));
+    }
+    curl_close($ch);
+   // return $result;
+}
 ?>
